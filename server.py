@@ -1,26 +1,12 @@
 from flask import Flask, request, render_template,jsonify
 from flask_cors import CORS,cross_origin
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline
-server = Flask(__name__)
-
-app = server
-
-@app.route('/')
-@cross_origin()
-def home_page():
-    return render_template('index.html')
-
-@app.route('/home')
-@cross_origin()
-def home():
-    return render_template('home.html')
-
-
-@app.route('/predict',methods=['GET','POST'])
+app = Flask(__name__)
+@app.route('/',methods=['GET','POST'])
 @cross_origin()
 def prediction():
     if request.method == 'GET':
-        return render_template('index.html')
+        return render_template('home.html')
     else:
         data = CustomData(
             carat = float(request.form.get('carat')),
@@ -41,7 +27,9 @@ def prediction():
         predict_pipeline = PredictPipeline()
         pred = predict_pipeline.predict(pred_df)
         results = round(pred[0],2)
-        return render_template('index.html',results=results,pred_df = pred_df)
+        print(pred)
+        print(results)
+        return render_template('home.html',results=results,pred_df = pred_df)
     
 @app.route('/predictAPI',methods=['POST'])
 @cross_origin()
@@ -67,4 +55,4 @@ def predict_api():
         return jsonify(dct)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    app.run(debug=True,host='0.0.0.0', port=8000)

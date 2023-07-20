@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Booking Form HTML Template</title>
+	<title>GemStone Price Prediction</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
@@ -16,6 +16,9 @@
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/dialog.css') }}" />
+
 </head>
 
 <body>
@@ -25,27 +28,23 @@
 				<div class="row">
 					<div class="col-md-7 col-md-push-5">
 						<div class="booking-cta">
-							<h1>Make your reservation</h1>
-							<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi facere, soluta magnam consectetur molestias itaque
-								ad sint fugit architecto incidunt iste culpa perspiciatis possimus voluptates aliquid consequuntur cumque quasi.
-								Perspiciatis.
-							</p>
+							<h1>GemStone Price Prediction</h1>
 						</div>
 					</div>
 					<div class="col-md-4 col-md-pull-7">
 						<div class="booking-form">
-							<form>
+							<form action="{{url_for('prediction')}}" method="POST">
                                 <div class="row">
 									<div class="col-sm-6">
 										<div class="form-group">
 											<span class="form-label">carat</span>
-											<input class="form-control" type="text" required>
+											<input class="form-control" type="text" id="carat" name="carat" placeholder="value in float" required>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
 											<span class="form-label">Depth</span>
-											<input class="form-control" type="text" required>
+											<input class="form-control" type="text"  id="depth" name="depth" placeholder="value in (float)"required>
 										</div>
 									</div>
 								</div>
@@ -54,13 +53,13 @@
 									<div class="col-sm-6">
 										<div class="form-group">
 											<span class="form-label">Table</span>
-											<input class="form-control" type="text" required>
+											<input class="form-control" type="text" id="table" name="table" placeholder="value in (float)"required>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
 											<span class="form-label">X:</span>
-											<input class="form-control" type="text" required>
+											<input class="form-control" type="text" id="x" name="x" placeholder="value in (float)" required>
 										</div>
 									</div>
 								</div>
@@ -69,13 +68,13 @@
 									<div class="col-sm-6">
 										<div class="form-group">
 											<span class="form-label">Y:</span>
-											<input class="form-control" type="text" required>
+											<input class="form-control" type="text" id="y" name="y" placeholder="value in (float)" required>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
 											<span class="form-label">Z:</span>
-											<input class="form-control" type="text" required>
+											<input class="form-control" type="text" id="z" name="z" placeholder="value in (float)" required>
 										</div>
 									</div>
 								</div>
@@ -135,5 +134,21 @@
 			</div>
 		</div>
 	</div>
+	{% if results %}
+	<div id="centerpoint">
+		<div id="dialog"></div>
+		<div class="popup">
+			<button id="close">&times;</button>
+			<h3>Gem Stone Price</h3>
+			<br>
+			<b>{{results}}</b>
+			<br>
+			<br>
+			<a href="/">Back to Home</a>
+		</div>
+
+	</div>
+  {% endif %}
+  <script src="static/js/dialog.js"></script>
 </body>
 </html>
